@@ -1,8 +1,14 @@
 package guru.springframework.model;
 
+import guru.springframework.model.Recipe;
+import guru.springframework.model.UnitOfMeasure;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+/**
+ * Created by jt on 6/13/17.
+ */
 @Entity
 public class Ingredient {
 
@@ -11,10 +17,22 @@ public class Ingredient {
     private Long id;
     private String description;
     private BigDecimal amount;
+
     @OneToOne(fetch = FetchType.EAGER)
     private UnitOfMeasure uom;
+
     @ManyToOne
     private Recipe recipe;
+
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
 
     public Long getId() {
         return id;
@@ -40,19 +58,19 @@ public class Ingredient {
         this.amount = amount;
     }
 
-    public UnitOfMeasure getUom() {
-        return uom;
-    }
-
-    public void setUom(UnitOfMeasure uom) {
-        this.uom = uom;
-    }
-
     public Recipe getRecipe() {
         return recipe;
     }
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
+    }
+
+    public UnitOfMeasure getUom() {
+        return uom;
+    }
+
+    public void setUom(UnitOfMeasure uom) {
+        this.uom = uom;
     }
 }
