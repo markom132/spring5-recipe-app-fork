@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -28,4 +29,15 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
         return recipeSet;
     }
+
+    @Override
+    public Recipe findById(Long l) {
+        Optional<Recipe> recipe = recipeRepository.findById(l);
+        if (!recipe.isPresent()) {
+            throw new RuntimeException("Recipe not found");
+        }
+
+        return recipe.get();
+    }
+
 }
